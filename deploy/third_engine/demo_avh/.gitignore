@@ -1,5 +1,0 @@
-include/inputs.h
-include/outputs.h
-
-__pycache__/
-build/

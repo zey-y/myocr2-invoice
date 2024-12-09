@@ -14,7 +14,6 @@ Python3.9环境，建议使用Anaconda管理python环境
 
 1. pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 2. 安装PaddleOCR所需内容，参考https://www.paddlepaddle.org.cn/install/quick?docurl=/documentation/docs/zh/install/pip/windows-pip.html <br>
-使用gpu请修改predict2.py文件中device='GPU'<br>
 建议使用最新版本, Linux cpu环境我使用了2.5.2版本很慢(4秒左右), 又换回2.6.2版本(1秒左右)
 例如：<br>
  2.1 cpu环境<br>
