@@ -17,3 +17,10 @@ safetensors==0.4.3
 flask
 pymupdf
 gunicorn
+
+reportlab==3.6.11
+xmltodict==0.13.0
+loguru==0.7.2
+fontTools==4.43.1
+PyMuPDF==1.23.4
+pyasn1>=0.6.0

@@ -2,6 +2,10 @@ import cv2
 import re
 import numpy as np
 import fitz
+from easyofd.ofd import OFD
+import os
+import base64
+
 import predict2
 import math
 from paddleocr import PaddleOCR
@@ -14,7 +18,7 @@ ocr = PaddleOCR(
     rec=r'models/ch_PP-OCRv4_rec_infer',
     det=r'models/ch_PP-OCRv4_det_infer')
 
-types = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf', 'application/ofd']
+types = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf', 'application/ofd', 'application/octet-stream']
 FIXED_WIDTH = 1219
 
 # 图片预处理
@@ -61,7 +65,19 @@ def convert_coordinates(box, orig_size, new_size, paste_coords):
 
 def __get_img__(filename, file):
   filename = filename.lower()
-  if filename.endswith('.pdf'):
+  if filename.endswith('.ofd'):
+    ofd = OFD()
+    if isinstance(file, str):
+      with open(file, "rb") as f:
+         ofdb64 = str(base64.b64encode(f.read()), "utf-8")
+    else:
+      ofdb64 = str(base64.b64encode(file), "utf-8")
+    print(ofdb64)
+    ofd.read(ofdb64, save_xml=False, xml_name=f"{os.path.split(filename)[0]}_xml")
+    img_np = ofd.to_jpg()
+    ofd.del_data()
+    img = np.array(img_np[0])
+  elif filename.endswith('.pdf'):
     if isinstance(file, str):
       doc = fitz.open(file)
     else:
