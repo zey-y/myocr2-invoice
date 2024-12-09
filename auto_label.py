@@ -38,7 +38,7 @@ def generate_pretty_color():
 # 使用PPOCRLabel打开target_path路径进行微调
 def auto_label():
   # 待标注的目标路径
-  directory = "D:\idataway\发票\发票3"
+  directory = "D:\发票\发票3"
   # directory = r"D:\发票\fapiao"
   files = os.listdir(directory)
   # 标注信息保存路径.
