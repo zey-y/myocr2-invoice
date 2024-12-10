@@ -33,27 +33,30 @@ def generate_pretty_color():
       b = max(min(b + adjustment, max_val), min_val)
 
   return (r, g, b)
-
+# directory = "D:\发票\ofd"
+# target_path = '../img2'
+# contrast_path = '../flag'
 # 自动标注
 # 使用PPOCRLabel打开target_path路径进行微调
-def auto_label():
-  # 待标注的目标路径
-  directory = "D:\发票\发票3"
-  # directory = r"D:\发票\fapiao"
-  files = os.listdir(directory)
-  # 标注信息保存路径.
-  target_path = 'img2'
-  # 缩放与原图可视化图片保存路径
-  contrast_path = 'flag'
-  # 文件名字, 自增.
-  count = 1200
-  file = open(target_path + "/Label.txt", 'w', encoding='utf-8')
+def label(public_info):
+  files = os.listdir(public_info.directory)
+
+  label_file_name = public_info.target_path + "/Label.txt"
+  existing_lines = []
+  try:
+    file = open(label_file_name, 'r+', encoding='utf-8')
+    existing_lines = [word for line in file.readlines() for word in line.strip().split()[0]]
+  except FileNotFoundError:
+    file = open(public_info.target_path + "/Label.txt", 'w', encoding='utf-8')
+
+
   for file_name in files:
-    count = count + 1
-    file_path = os.path.join(directory, file_name)
+    # count = count + 1
+    name = file_name.split('.')[0]
+    file_path = os.path.join(public_info.directory, file_name)
     img = __get_img__(file_name, file_path)
     processed_img, orig_size, new_size, paste_coords, canvas = preprocess_image(img, 640, 640)
-    img_file = target_path + "/" + f"{count}" +".png"
+    img_file = public_info.target_path + "/" + f"{name}" +".png"
     # 保存图片, 缩放后的.
     canvas.save(img_file)
     # cv2.imwrite(imgfile, canvas)
@@ -90,10 +93,11 @@ def auto_label():
       data_line.append(data)
     json_data = json.dumps(data_line)
     # 保存对比图.
-    img_joint(Image.fromarray(img), Image.fromarray(canvas), 1).save(contrast_path + "/" + f"{count}" + ".png")
+    img_joint(Image.fromarray(img), Image.fromarray(canvas), 1).save(public_info.contrast_path + "/" + f"{name}" + ".png")
     aa =img_file + "	" + json_data
     print(img_file)
-    # 写入标注位置信息.
-    file.write(aa + '\n')
+    if img_file not in existing_lines:
+      # 写入标注位置信息.
+      file.write(aa + '\n')
 
-auto_label()
+# auto_label()

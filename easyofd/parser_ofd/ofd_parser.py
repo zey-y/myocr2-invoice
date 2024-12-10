@@ -284,7 +284,7 @@ class OFDParser(object):
 
         # 签章信息
         if signatures and (signatures_xml_obj := self.get_xml_obj(signatures[0])):
-            print("signatures_xml_obj", signatures,signatures_xml_obj)
+            # print("signatures_xml_obj", signatures,signatures_xml_obj)
             signatures_info = SignaturesFileParser(signatures_xml_obj)()
             if signatures_info:  # 获取签章具体信息
                 for _, signatures_cell in signatures_info.items():
@@ -295,7 +295,7 @@ class OFDParser(object):
                     prefix = BaseLoc.split("/")[0]
                     signatures_info = SignatureFileParser(signature_xml_obj)(prefix=prefix)
                     # print(signatures_info)
-                    print("signatures_info", signatures_info)
+                    # print("signatures_info", signatures_info)
                     if signatures_info.__len__() == 0:
                         continue
                     PageRef = signatures_info.get("PageRef")

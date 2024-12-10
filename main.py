@@ -72,7 +72,7 @@ def __get_img__(filename, file):
          ofdb64 = str(base64.b64encode(f.read()), "utf-8")
     else:
       ofdb64 = str(base64.b64encode(file), "utf-8")
-    print(ofdb64)
+    # print(ofdb64)
     ofd.read(ofdb64, save_xml=False, xml_name=f"{os.path.split(filename)[0]}_xml")
     img_np = ofd.to_jpg()
     ofd.del_data()
@@ -93,7 +93,8 @@ def __get_img__(filename, file):
     # processed_img, orig_size, new_size, paste_coords, resize_img = preprocess_image(img)
   else:
     if isinstance(file, str):
-      img = cv2.imread(file)[:, :, ::-1]
+      # img = cv2.imread(file)[:, :, ::-1]
+      img = np.array(Image.open(file))
     else:
       img = cv2.imdecode(np.frombuffer(file, np.uint8), cv2.COLOR_BGR2RGB)
     # processed_img, orig_size, new_size, paste_coords, resize_img = preprocess_image(img)
