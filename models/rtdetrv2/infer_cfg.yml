@@ -1,0 +1,91 @@
+mode: paddle
+draw_threshold: 0.5
+metric: COCO
+use_dynamic_shape: false
+arch: DETR
+min_subgraph_size: 3
+Preprocess:
+- interp: 1
+  keep_ratio: false
+  target_size:
+  - 640
+  - 640
+  type: Resize
+- mean:
+  - 0.0
+  - 0.0
+  - 0.0
+  norm_type: none
+  std:
+  - 1.0
+  - 1.0
+  - 1.0
+  type: NormalizeImage
+- type: Permute
+label_list:
+- title
+- invoice_code
+- invoice_number
+- issue_date
+- buyer_name
+- buyer_code
+- tax_exclusive_total_amount
+- tax_total_amount
+- tax_inclusive_total_amount
+- seller_name
+- seller_code
+- check_code
+- machine_number
+- password_area
+- item
+- item_name
+- item_type
+- item_unit
+- item_number
+- item_price
+- item_amount
+- item_tax_rate
+- item_tax
+- item_serial_number
+- buyer_address_telephone
+- buyer_bank_account
+- seller_address_telephone
+- seller_bank_account
+- remark
+- payee
+- recheck
+- invoice_clerk
+- electronic_ticket_number
+- starting_station
+- destination_station
+- train_number
+- seat_type
+- seat_or_bunk_number
+- date_of_departure
+- time_of_departure
+- passengers
+- passenger_identification_number
+- departure
+- destination
+- vehicle_type
+- carrier
+- item_license_plate_number
+- item_from_the_date_of_passage
+- item_passage_dates_are_uninterrupted
+- machine_code
+- machine_numbered
+- factory_plate_model
+- place_of_origin
+- certificate_of_conformity_no
+- import_certificate_number
+- commodity_inspection_number
+- engine_number
+- vehicle_identification_number
+- seller_telephone
+- seller_address
+- seller_bank_account_name
+- tax_rate
+- competent_tax_authorities_and_code
+- tonnage
+- maximum_number_of_passenger
+- tax_department_reminder
